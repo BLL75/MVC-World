@@ -39,7 +39,7 @@ class mvc_controller {
    {
 		$universitario = new universitario();	
 		//carga la plantilla 
-		$pagina=$this->load_template('- Resultados de la busqueda -');				
+		$pagina=$this->load_template('- Resultado de la busqueda -');				
 		//carga html del buscador
   	    $buscador = $this->load_page('app/views/default/modules/m.code.php');				
 	      //obtiene  los registros de la base de datos
