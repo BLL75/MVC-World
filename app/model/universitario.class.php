@@ -14,11 +14,35 @@ class universitario extends database {
 		 OUTPUT:
 		 $data | Array con los registros obtenidos, si no existen datos, su valor es una cadena vacia
 	 */
-	function universitarios($parametroBusqueda=NULL, $pais=NULL)
+	function universitarios($pais)
 	{
 		//conexion a la base de datos
+		//echo $pais;
+		//echo $parametroBusqueda;
 		$this->conectar();		
-		$query = $this->consulta("SELECT * FROM country WHERE '$parametroBusqueda' = '$pais';");
+		$query = $this->consulta("SELECT * FROM country WHERE name = '$pais';");
+ 	    $this->disconnect();					
+		if($this->numero_de_filas($query) > 0) // existe -> datos correctos
+		{		
+				//se llenan los datos en un array
+				while ( $tsArray = $this->fetch_assoc($query) ) 
+					$data[] = $tsArray;			
+		
+				return $data;
+		}else
+		{	
+			return '';
+		} 
+	}
+	
+	
+	function buscaCode($code)
+	{
+		//conexion a la base de datos
+		//echo $pais;
+		//echo $parametroBusqueda;
+		$this->conectar();		
+		$query = $this->consulta("SELECT * FROM country WHERE code = '$code';");
  	    $this->disconnect();					
 		if($this->numero_de_filas($query) > 0) // existe -> datos correctos
 		{		

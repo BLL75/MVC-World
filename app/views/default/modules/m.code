@@ -6,6 +6,10 @@
       <input type="text" name="pais">
     </label></td>
     <td><label>
+	<td>Introducir code: </td>
+    <td><label>
+      <input type="text" name="code">
+    </label></td>
     <td><label>
       <input type="submit" name="Submit" value="   Buscar   " />
     </label></td>

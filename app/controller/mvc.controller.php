@@ -35,6 +35,32 @@ class mvc_controller {
 		$this->view_page($pagina);
    }
    
+    function buscar2($code)
+   {
+		$universitario = new universitario();	
+		//carga la plantilla 
+		$pagina=$this->load_template('- Resultados de la busqueda -');				
+		//carga html del buscador
+  	    $buscador = $this->load_page('app/views/default/modules/m.code.php');				
+	      //obtiene  los registros de la base de datos
+		  ob_start();
+		  //realiza consulta al modelo
+		   $tsArray = $universitario->buscaCode($code);			   
+	   		if($tsArray!=''){//si existen registros carga el modulo  en memoria y rellena con los datos 
+						$titulo = 'Resultado de busqueda por "'.$code.'" ';
+						//carga la tabla de la seccion de VIEW
+			  			include 'app/views/default/modules/m.table_univ.php';
+						$table = ob_get_clean();	
+						//realiza el parseado 
+						$pagina = $this->replace_content('/\#CONTENIDO\#/ms', $buscador.$table , $pagina);	
+	   		}else{//si no existen datos -> muestra mensaje de error
+		   			$pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$buscador.'<h1>No existen resultados</h1>' , $pagina);	
+	   		}		
+		$this->view_page($pagina);
+   }
+   
+   
+   
    /* METODO QUE MUESTRA LA PAGINA PRINCIPAL CUANDO NO EXISTEN NUEVAS ORDENES
    OUTPUT
    HTML | codigo html de la pagina   
@@ -81,6 +107,13 @@ class mvc_controller {
 	function buscador(){
 		$pagina=$this->load_template('Busqueda de registros');						
 		$buscador = $this->load_page('app/views/default/modules/m.buscador.php');
+		$pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$buscador , $pagina);	
+		$this->view_page($pagina);
+	}
+	
+	function buscador2(){
+		$pagina=$this->load_template('Busqueda de registros');						
+		$buscador = $this->load_page('app/views/default/modules/m.code.php');
 		$pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$buscador , $pagina);	
 		$this->view_page($pagina);
 	}
