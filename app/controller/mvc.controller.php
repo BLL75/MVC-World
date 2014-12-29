@@ -60,6 +60,31 @@ class mvc_controller {
    }
    
    
+   function buscar3($ciudad)
+   {
+		$universitario = new universitario();	
+		//carga la plantilla 
+		$pagina=$this->load_template('- Resultados de la busqueda -');				
+		//carga html del buscador
+  	    $buscador = $this->load_page('app/views/default/modules/m.ciudad.php');				
+	      //obtiene  los registros de la base de datos
+		  ob_start();
+		  //realiza consulta al modelo
+		   $tsArray = $universitario->buscaCiudad($ciudad);			   
+	   		if($tsArray!=''){//si existen registros carga el modulo  en memoria y rellena con los datos 
+						$titulo = 'Resultado de busqueda por "'.$ciudad.'" ';
+						//carga la tabla de la seccion de VIEW
+			  			include 'app/views/default/modules/m.table_ciudad.php';
+						$table = ob_get_clean();	
+						//realiza el parseado 
+						$pagina = $this->replace_content('/\#CONTENIDO\#/ms', $buscador.$table , $pagina);	
+	   		}else{//si no existen datos -> muestra mensaje de error
+		   			$pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$buscador.'<h1>No existen resultados</h1>' , $pagina);	
+	   		}		
+		$this->view_page($pagina);
+   }
+   
+   
    
    /* METODO QUE MUESTRA LA PAGINA PRINCIPAL CUANDO NO EXISTEN NUEVAS ORDENES
    OUTPUT
@@ -72,24 +97,11 @@ class mvc_controller {
 		$pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$html , $pagina);
 		$this->view_page($pagina);
    }
-
-   /* METODO QUE MUESTRA LA PAGINA HISTORIA DE BOLIVIA, ES UNA PAGINA ESTATICA
-   OUTPUT
-   HTML | codigo html de la pagina   
-   */
-   function historia()
-   {
-		$pagina=$this->load_template('Modelo Vista Controlador');				
-		$html = $this->load_page('app/views/default/modules/m.historia.php');
-		$pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$html , $pagina);
-		$this->view_page($pagina);
-   }
-   
 	/* METODO QUE CARGA LAS PARTES PRINCIPALES DE LA PAGINA WEB
 	INPUT
 		$title | titulo en string del header
 	OUTPIT
-		$pagina | string que contiene toda el cocigo HTML de la plantilla 
+		$pagina | string que contiene toda el codigo HTML de la plantilla 
 	*/
 	function load_template($title='Sin Titulo'){
 		$pagina = $this->load_page('app/views/default/page.php');
@@ -114,6 +126,13 @@ class mvc_controller {
 	function buscador2(){
 		$pagina=$this->load_template('Busqueda de registros');						
 		$buscador = $this->load_page('app/views/default/modules/m.code.php');
+		$pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$buscador , $pagina);	
+		$this->view_page($pagina);
+	}
+	
+	function buscador3(){
+		$pagina=$this->load_template('Busqueda de registros');						
+		$buscador = $this->load_page('app/views/default/modules/m.ciudad.php');
 		$pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$buscador , $pagina);	
 		$this->view_page($pagina);
 	}

@@ -57,6 +57,27 @@ class universitario extends database {
 		} 
 	}
 	
+	function buscaCiudad($ciudad)
+	{
+		//conexion a la base de datos
+		//echo $pais;
+		//echo $parametroBusqueda;
+		$this->conectar();		
+		$query = $this->consulta("SELECT * FROM city WHERE name = '$ciudad';");
+ 	    $this->disconnect();					
+		if($this->numero_de_filas($query) > 0) // existe -> datos correctos
+		{		
+				//se llenan los datos en un array
+				while ( $tsArray = $this->fetch_assoc($query) ) 
+					$data[] = $tsArray;			
+		
+				return $data;
+		}else
+		{	
+			return '';
+		} 
+	}
+	
 	
 	
 }
