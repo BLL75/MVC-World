@@ -4,6 +4,7 @@
     <li><a href="index.php?action=buscar">Buscar Pais</a></li>
 	<li><a href="index.php?action=buscaCode">Buscar Code</a></li>
 	<li><a href="index.php?action=buscaCiudad">Buscar ciudad</a></li>
+	<li><a href="index.php?action=insertaCiudad">Insertar ciudad</a></li>
     
   </ul>
 </div>

@@ -78,6 +78,46 @@ class universitario extends database {
 		} 
 	}
 	
+	function insertaCiudad($name)
+	{
+		//conexion a la base de datos
+		//echo $pais;
+		//echo $parametroBusqueda;
+		$this->conectar();
+		
+		        if(isset($_POST['name']) && $_POST['countrycode']) {
+					
+					$name = $_POST['name'];
+					$countrycode = $_POST['countrycode'];
+					$district = $_POST['district'];
+					$population = $_POST['population'];	
+				}
+
+        
+				$query = $this->consulta("REPLACE INTO City(name,countrycode,district,population)
+							   VALUES('$name','$countrycode','$district',$population)");
+							   
+				$query2 = $this->consulta("SELECT name,countrycode,district,population FROM city WHERE name = '$name';");
+				//$userText = "Insertado correctamente";
+				
+				
+ 	    $this->disconnect();
+        		
+		if($this->numero_de_filas($query2) > 0) // existe -> datos correctos
+		{		
+				//se llenan los datos en un array
+				while ( $tsArray = $this->fetch_assoc($query2)) 
+				$data[] = $tsArray;			
+				return $data;
+		}else
+		{	
+			return '';
+		} 
+	}
+	
+	
+	
+	
 	
 	
 }

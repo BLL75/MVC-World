@@ -85,6 +85,34 @@ class mvc_controller {
    }
    
    
+   function insertar($name)
+   {
+		$universitario = new universitario();	
+		//carga la plantilla 
+		$pagina=$this->load_template('- Resultados de la busqueda -');				
+		//carga html del buscador
+  	    $buscador = $this->load_page('app/views/default/modules/m.insertaCiudad.php');				
+	      //obtiene  los registros de la base de datos
+		  ob_start();
+		  //realiza consulta al modelo
+		   $tsArray = $universitario->insertaCiudad($name);			   
+	   		if($tsArray!=''){//si existen registros carga el modulo  en memoria y rellena con los datos 
+			echo "<script> alert('existn registro carga en el moculo en memoria y rellena con los datos');</script>";
+						$titulo = 'Valores insertados : "'.$name.'"';
+						//carga la tabla de la seccion de VIEW
+			  			include 'app/views/default/modules/m.table_insertado.php';
+						echo "<script> alert('no llega a tbla insertado');</script>";
+						$table = ob_get_clean();	
+						//realiza el parseado 
+						$pagina = $this->replace_content('/\#CONTENIDO\#/ms', $buscador.$table , $pagina);	
+	   		}else{//si no existen datos -> muestra mensaje de error
+		   			$pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$buscador.'<h1>No existen resultados</h1>' , $pagina);	
+	   		}		
+		$this->view_page($pagina);
+   }
+   
+   
+   
    
    /* METODO QUE MUESTRA LA PAGINA PRINCIPAL CUANDO NO EXISTEN NUEVAS ORDENES
    OUTPUT
@@ -133,6 +161,13 @@ class mvc_controller {
 	function buscador3(){
 		$pagina=$this->load_template('Busqueda de registros');						
 		$buscador = $this->load_page('app/views/default/modules/m.ciudad.php');
+		$pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$buscador , $pagina);	
+		$this->view_page($pagina);
+	}
+	
+	function buscadorInsertarCiudad(){
+		$pagina=$this->load_template('Ciudad insertada');						
+		$buscador = $this->load_page('app/views/default/modules/m.insertaCiudad.php');
 		$pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$buscador , $pagina);	
 		$this->view_page($pagina);
 	}
