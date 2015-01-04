@@ -1,4 +1,4 @@
-<div class="t"><?php echo $titulo; ?></div>		
+<div class="t"></div>		
     <table border="0" cellspacing="3" cellpadding="0" class="tabla" width="100%">
 		 <tr>
 	    	

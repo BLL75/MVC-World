@@ -5,7 +5,6 @@
     	 
 		$mvc = new mvc_controller();
 	    if(isset($_GET['action'])){
-		print($_GET['action']);
 		
 			if( $_GET['action'] == 'buscar' ) //muestra el modulo del buscador
 			{	
@@ -26,7 +25,6 @@
 		}
 		else if( isset($_POST['pais']) )//muestra el buscador y los resultados
 		{       //alert($_POST['pais']);
-		        echo "<script> alert('Your input is correct');</script>";
 				$mvc->buscar( $_POST['pais'] );
 		}
 		else if( isset($_POST['code']) )//muestra el buscador y los resultados

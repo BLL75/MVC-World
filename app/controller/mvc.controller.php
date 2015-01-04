@@ -85,7 +85,7 @@ class mvc_controller {
    }
    
    
-   function insertar($name)
+   function insertar()
    {
 		$universitario = new universitario();	
 		//carga la plantilla 
@@ -95,13 +95,12 @@ class mvc_controller {
 	      //obtiene  los registros de la base de datos
 		  ob_start();
 		  //realiza consulta al modelo
-		   $tsArray = $universitario->insertaCiudad($name);			   
+		   $tsArray = $universitario->insertaCiudad();			   
 	   		if($tsArray!=''){//si existen registros carga el modulo  en memoria y rellena con los datos 
-			echo "<script> alert('existn registro carga en el moculo en memoria y rellena con los datos');</script>";
-						$titulo = 'Valores insertados : "'.$name.'"';
+						//$titulo = 'Ciudad insertada : "'.$name.'"';
 						//carga la tabla de la seccion de VIEW
 			  			include 'app/views/default/modules/m.table_insertado.php';
-						echo "<script> alert('no llega a tbla insertado');</script>";
+						
 						$table = ob_get_clean();	
 						//realiza el parseado 
 						$pagina = $this->replace_content('/\#CONTENIDO\#/ms', $buscador.$table , $pagina);	

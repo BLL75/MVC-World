@@ -78,7 +78,7 @@ class universitario extends database {
 		} 
 	}
 	
-	function insertaCiudad($name)
+	function insertaCiudad()
 	{
 		//conexion a la base de datos
 		//echo $pais;
