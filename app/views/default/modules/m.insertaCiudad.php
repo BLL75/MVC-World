@@ -1,62 +1,67 @@
- <form action="index.php" method="post">
-		 <table border="0" cellspacing="4" cellpadding="0" class="tabla">
-		 <script>
-		          name = document.getElementById("name").value;
-				  countrycode = document.getElementById("countrycode").value;
-				  district = document.getElementById("district").value;
-				  population = document.getElementById("population").value;
-		    function validacion() {
-			      
-				  if ( name == null || name.length == 0 || /^\s+$/.test(name) ) {
-					// Si no se cumple la condicion...
-					alert('[ERROR] El campo debe tener un valor de...');
-					return false;
-				  }
-				  else if ( countrycode == null || countrycode.length == 0 || /^\s+$/.test(countrycode) )  {
-					// Si no se cumple la condicion...
-					alert('[ERROR] El campo debe tener un valor de...');
-					return false;
-				  }
-				  else if ( district == null || district.length == 0 || /^\s+$/.test(district) )  {
-					// Si no se cumple la condicion...
-					alert('[ERROR] El campo debe tener un valor de...');
-					return false;
-				  }
-				  else if ( isNaN(population))  {
-					// Si no se cumple la condicion...
-					alert('[ERROR] El campo debe tener un valor numerico');
-					return false;
-				  }
-				  else
-				  {
-				      // Si el script ha llegado a este punto, todas las condiciones
-					  // se han cumplido, por lo que se devuelve el valor true
-					  return true;
-				  }
-				 
-				  
+<html>
+	<head>
+		<script src="/scripts/jquery.js"></script>
+		<script src="/scripts/jqueryvalidation.js"></script>
+	<script>
+	$.validator.setDefaults({
+		submitHandler: function() {
+			alert("submitted!");
+		}
+	});
+	$().ready(function() {
+		// validate signup form on keyup and submit
+		$("#formulario").validate({
+			rules: {
+				name: "required",
+				countrycode: "required",
+				district: "required",
+				population:"required",
+			},
+			messages: {
+				name: "Inserta nombre de la ciudad",
+				countrycode: "Inserta codigo del pais",
+				district: "Inserta el distrito",
+				population: "Inserta número de habitantes",
 			}
-		 </script>
-  <tr>
-	<td>Introducir ciudad: </td>
-    <td><label>
-      <input type="text" name="name">
-    </label></td>
-	<td>Introducir country code: </td>
-    <td><label>
-      <input type="text" name="countrycode">
-    </label></td>
-	<td>Introducir district: </td>
-    <td><label>
-      <input type="text" name="district">
-    </label></td>
-	<td>Introducir population: </td>
-    <td><label>
-      <input type="text" name="population">
-    </label></td>
-	<td><label>
-    <input type="submit" name="Submit" value="insertarCiudad" onsubmit="validacion()" />
-    </label></td>
-  </tr>
-</table>
-</form>
+		});
+	});
+	</script>
+	
+	
+	</head>
+	<body>
+		<form class="cmxform" action="index.php" method="post" id="formulario">
+			<table border="0" cellspacing="4" cellpadding="0" class="tabla">	 
+			  <tr>
+				<td>Ciudad: </td>
+				<td>
+					<label>
+					  <input id="cname" name="name" minlength="2" type="text" required>
+					</label>
+				</td>
+				<td>Country code: </td>
+				<td>
+					<label>
+					  <input id="ccountrycode" name="countrycode" minlength="2" type="text" required>
+					</label>
+				</td>
+				<td>Distrito: </td>
+				<td>
+					<label>
+					  <input id="cdistrict" name="district" minlength="2" type="text" required>
+					</label>
+				</td>
+				<td>Numero habitantes: </td>
+				<td>
+				<label>
+				  <input type="number" name="population" id="population" required>
+				</label>
+				</td>
+				<td><label>
+				<input type="submit" name="Submit" value="insertarCiudad" />
+				</label></td>
+			  </tr>
+			</table>
+		</form>
+	</body>
+</html>
